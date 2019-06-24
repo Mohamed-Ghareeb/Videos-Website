@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Lastest Videos')
+    
 @section('content')
 
 <div class="section section-buttons">

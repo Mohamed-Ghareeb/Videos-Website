@@ -42,6 +42,12 @@
                 <p>Videos</p>
             </a>
         </li>
+        <li class="nav-item {{ is_active('messages') }}">
+            <a class="nav-link" href="{{ route('messages.index') }}">
+                <i class="material-icons">content_paste</i>
+                <p>Messages</p>
+            </a>
+        </li>
         <!-- your sidebar here -->
     </ul>
 </div>

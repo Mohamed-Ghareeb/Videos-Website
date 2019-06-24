@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\BackEnd;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Models\Message;
 
-class Messages extends Controller
+class Messages extends BackEndController
 {
-    //
+    public function __construct(Message $model)
+    {
+        parent::__construct($model);
+    }
 }

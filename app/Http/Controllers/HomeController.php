@@ -8,6 +8,8 @@ use App\Models\Skill;
 use App\Models\Tag;
 use App\Http\Requests\FrontEnd\Comments\Store;
 use App\Models\Comments;
+use App\Http\Requests\FrontEnd\Messages\Store as MessageStore;
+use App\Models\Messages;
 
 class HomeController extends Controller
 {
@@ -83,5 +85,11 @@ class HomeController extends Controller
             'comment'  => $request->comment,
         ]);
         return redirect()->route('front.video', ['id' => $video->id, '#comments']);
+    }
+  
+    public function messageStore(MessageStore $request)
+    {
+        Messages::create($request->all());
+        return redirect()->route('frontend.landing');
     }
 }
