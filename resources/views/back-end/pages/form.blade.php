@@ -2,7 +2,7 @@
     @php $input = "name";  @endphp
     <div class="col-md-6">
         <div class="form-group bmd-form-group">
-            <label class="bmd-label-floating">Category Title</label>
+            <label class="bmd-label-floating">Page Title</label>
             <input type="text" name="{{$input}}" value="{{ isset($row) ? $row->{$input} : '' }}" class="form-control @error($input) is-invalid @enderror">
             @error($input)
                 <span class="invalid-feedback" role="alert">

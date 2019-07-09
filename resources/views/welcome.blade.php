@@ -8,6 +8,8 @@
 
   @include('front-end.homepage-section.videos')
 
+  @include('front-end.homepage-section.statics')
+
   @include('front-end.homepage-section.contact-us')
 
 @endsection
