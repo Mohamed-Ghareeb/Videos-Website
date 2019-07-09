@@ -21,7 +21,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->only([
-            'index', 'commentUpdate', 'commentStore'
+           'commentUpdate', 'commentStore'
         ]);
     }
 
@@ -91,5 +91,11 @@ class HomeController extends Controller
     {
         Messages::create($request->all());
         return redirect()->route('frontend.landing');
+    }
+
+    public function welcome()
+    {
+        $videos = Video::orderBy('id', 'desc')->paginate(9);
+        return view('welcome',  compact('videos'));
     }
 }

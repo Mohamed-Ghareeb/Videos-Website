@@ -11,14 +11,18 @@ class ReplyContact extends Mailable
 {
     use Queueable, SerializesModels;
 
+    protected $message;
+    protected $replay;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($message, $replay)
     {
-        //
+        $this->message = $message;
+        $this->replay = $replay;
     }
 
     /**
@@ -28,6 +32,9 @@ class ReplyContact extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        $contactMessage = $this->message;
+        $replay  = $this->replay;
+        return $this->to( $contactMessage->email)
+        ->view('back-end.mail.replay-messages', compact('contactMessage', 'replay'));
     }
 }
