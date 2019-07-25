@@ -33,7 +33,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $videos = Video::orderBy('id', 'desc')->paginate(30);
+        $videos = Video::orderBy('id', 'desc');
+        if (request()->has('search') && request()->get('search') != '') {
+            $videos = $videos->where('name', 'like', '%' . request()->get('search') . '%');
+        }       
+        $videos = $videos->paginate(30);
         return view('home', compact('videos'));
     }
 
