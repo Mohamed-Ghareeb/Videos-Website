@@ -10,6 +10,7 @@ use App\Http\Requests\FrontEnd\Comments\Store;
 use App\Models\Comments;
 use App\Http\Requests\FrontEnd\Messages\Store as MessageStore;
 use App\Models\Messages;
+use App\Models\Page;
 
 class HomeController extends Controller
 {
@@ -100,5 +101,11 @@ class HomeController extends Controller
         $comments_count = Comments::count();
         $tags_count     = Tag::count();
         return view('welcome',  compact('videos', 'videos_count', 'comments_count', 'tags_count'));
+    }
+
+    public function page($id, $slug = null)
+    {
+        $page = Page::findOrfail($id);
+        return view('front-end.page.index', compact('page'));
     }
 }

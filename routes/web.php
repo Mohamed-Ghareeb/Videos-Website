@@ -20,16 +20,19 @@ Route::namespace('BackEnd')->prefix('admin')->middleware('admin')->group(functio
 
 Auth::routes();
 
-// Frontend Routes
+// Frontend Routes [[ When The SomeOne Is A Guest ]]
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@welcome')->name('frontend.landing');
 Route::get( '/category/{id}', 'HomeController@category')->name('front.category');                                   // Category Routes
 Route::get('/skill/{id}', 'HomeController@skills')->name('front.skill');                                           // Skills Routes
 Route::get('/tag/{id}', 'HomeController@tags')->name('front.tag');                                                // Tags Routes
 Route::get('/video/{id}', 'HomeController@video')->name('front.video');                                          // video Routes
 Route::post('/contact-us', 'HomeController@messageStore')->name('contact.store');                               // Messages Routes
-Route::get('/', 'HomeController@welcome')->name('frontend.landing');
+Route::get( '/page/{id}/{slug?}', 'HomeController@page')->name( 'front.page');                                 // Pages Routes
 
+
+// Frontend Routes [[ When The SomeOne Is A Login ]]
 
 Route::middleware('auth')->group(function () {
 
