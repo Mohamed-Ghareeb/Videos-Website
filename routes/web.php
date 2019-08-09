@@ -29,14 +29,16 @@ Route::get('/skill/{id}', 'HomeController@skills')->name('front.skill');        
 Route::get('/tag/{id}', 'HomeController@tags')->name('front.tag');                                                // Tags Routes
 Route::get('/video/{id}', 'HomeController@video')->name('front.video');                                          // video Routes
 Route::post('/contact-us', 'HomeController@messageStore')->name('contact.store');                               // Messages Routes
-Route::get( '/page/{id}/{slug?}', 'HomeController@page')->name( 'front.page');                                 // Pages Routes
+Route::get( '/page/{id}/{slug?}', 'HomeController@page')->name('front.page');                                 // Page Route
+Route::get('/profile/{id}/{slug?}', 'HomeController@profile')->name('front.profile');                         // User Profile Route
 
 
 // Frontend Routes [[ When The SomeOne Is A Login ]]
 
 Route::middleware('auth')->group(function () {
-
+    
     Route::post('/comment/{id}', 'HomeController@commentUpdate')->name('front.update-comment');                  // Comments Routes
     Route::post('/comment/{id}/create', 'HomeController@commentStore')->name('front.store-comment');             // Comments Routes
+    Route::post('profile', 'HomeController@updateProfile')->name('profile.update');                         // Update User Profile Route
 });
 

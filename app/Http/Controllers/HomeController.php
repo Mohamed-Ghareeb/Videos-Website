@@ -6,31 +6,23 @@ use App\Models\Video;
 use App\Models\Category;
 use App\Models\Skill;
 use App\Models\Tag;
-use App\Http\Requests\FrontEnd\Comments\Store;
-use App\Models\Comments;
-use App\Http\Requests\FrontEnd\Messages\Store as MessageStore;
-use App\Models\Messages;
+use App\Models\User;
 use App\Models\Page;
+use App\Models\Comments;
+use App\Models\Messages;
+use App\Http\Requests\FrontEnd\Messages\Store as MessageStore;
+use App\Http\Requests\FrontEnd\Users\Store;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth')->only([
-           'commentUpdate', 'commentStore'
+           'commentUpdate', 'commentStore' , 'updateProfile'
         ]);
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
         $videos = Video::orderBy('id', 'desc');
@@ -111,5 +103,38 @@ class HomeController extends Controller
     {
         $page = Page::findOrfail($id);
         return view('front-end.page.index', compact('page'));
+    }
+
+    public function profile($id, $slug = null)
+    {
+        $user = User::findOrfail($id);
+        return view('front-end.profile.index', compact('user'));
+    }
+   
+    public function updateProfile(Store $request)
+    {
+        $user  = User::findOrfail(auth()->user()->id);
+        $array = [];
+
+        if ($request->email != $user->email) {
+            $email = User::where('email', $request->email)->first();
+            if ($email == null) {
+                $array['email'] = $request->email;
+            }
+        }
+
+        if ($request->name != $user->name) {
+            $array['name'] = $request->name;
+        }
+      
+        if ($request->password != '') {
+            $array['password'] = Hash::make($request->password);
+        }
+
+        if (!empty($array)) {
+            $user->update($array);
+        }
+
+        return redirect()->route('front.profile', ['id' => $user->id, 'slug' => slug($user->name)]);
     }
 }

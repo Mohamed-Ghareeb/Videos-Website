@@ -5,7 +5,7 @@
                 <ul>
                     @foreach ($pages as $page)
                         <li>
-                            <a href="{{ route('front.page', ['id' => $page->id, 'slug' => trim(str_replace(' ', '_', $page->name))]) }}">{{ $page->name }}</a>
+                            <a href="{{ route('front.page', ['id' => $page->id, 'slug' => slug($page->name)]) }}">{{ $page->name }}</a>
                         </li>
                     @endforeach
                 </ul>

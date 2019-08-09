@@ -12,3 +12,12 @@ if (!function_exists('getYoutubeId')) {  // This Function To Get Youtube Video I
         return isset($match[1]) ? $match[1] : null;
     }
 }
+
+if (!function_exists('slug')) { 
+    function slug(String $name){
+
+        return strtolower(trim(str_replace(' ', '_', $name)));
+    
+    }
+}
+
